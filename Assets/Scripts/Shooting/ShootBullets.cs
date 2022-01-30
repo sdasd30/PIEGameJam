@@ -12,7 +12,7 @@ public class ShootBullets : MonoBehaviour
     public float BulletSpawnDistance;
     public float ReloadSpeed;
     public float bulletSpread;
-    public float bulletCount = 1;
+    public int bulletCount = 1;
     private float reload_timer;
     private float prev_time;
 
@@ -20,6 +20,15 @@ public class ShootBullets : MonoBehaviour
     void Start()
     {
         //player = transform;
+    }
+
+    public void ChangeWeapon(float dam, float spd, float atk, float sprd, int count)
+    {
+        bulletDamage = dam;
+        BulletSpeed = spd;
+        ReloadSpeed = atk;
+        bulletSpread = sprd;
+        bulletCount = count;
     }
 
     // Update is called once per frame
