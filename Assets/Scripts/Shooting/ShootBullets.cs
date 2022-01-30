@@ -10,6 +10,8 @@ public class ShootBullets : MonoBehaviour
     public float BulletSpeed;
     public float BulletSpawnDistance;
     public float ReloadSpeed;
+    public float bulletSpread;
+    public float bulletCount = 1;
     private float reload_timer;
     private float prev_time;
 
@@ -24,22 +26,24 @@ public class ShootBullets : MonoBehaviour
     {
         if (reload_timer >= ReloadSpeed)
         {
-            if (Input.GetKey(FireKey))
+            if (Input.GetMouseButton(0))
             {
-                Vector3 toMouse = (Input.mousePosition - transform.position).normalized;
-                GameObject b = Instantiate(BulletPrefab,
-                    transform.position + transform.right * BulletSpawnDistance,
-                    transform.rotation);
-                b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;//* toMouse;
+                //Vector3 toMouse = (Input.mousePosition - transform.position).normalized;
+                for (int i = 0; i < bulletCount; i++)
+                {
+                    GameObject b = Instantiate(BulletPrefab,
+                        transform.position + transform.right * BulletSpawnDistance,
+                        transform.rotation);
+                    b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;//* toMouse;
+                    b.GetComponent<Rigidbody2D>().MoveRotation(Random.Range(-bulletSpread, bulletSpread));
+                }
                 reload_timer = 0;
             }
         }
         else
         {
-            reload_timer += Time.time - prev_time;
+            reload_timer += Time.deltaTime;
         }
-
-        prev_time = Time.time;
     }
 
 }

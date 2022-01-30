@@ -52,7 +52,8 @@ public class Attackable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Attackable>() != null)
+        GameObject other = collision.gameObject;
+        if (other.GetComponent<Attackable>() != null)
         {
             Attackable otherAttackable = collision.gameObject.GetComponent<Attackable>();
 
@@ -63,6 +64,13 @@ public class Attackable : MonoBehaviour
                     otherAttackable.TakeDamage(contactHurt);
                     TakeDamage(otherAttackable.contactHurt);
                 }
+            }
+        }
+        else
+        {
+            if (other.tag == "Wall" && this.GetComponent<Bullet>() != null)
+            {
+                Destroy(this.gameObject);
             }
         }
     }
