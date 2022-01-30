@@ -2,31 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+public class WeaponSpawner : MonoBehaviour
 {
     DependentSpawner[] spawners;
-    public List<GameObject> enemies;
-    public GameObject nextEnemy;
+    public List<GameObject> weapons;
     private DependentSpawner nextSpawner;
     CreditPool creditPool;
+
+    public float timer = 15f;
+    float maxTimer;
 
 
     void Start()
     {
         spawners = FindObjectsOfType<DependentSpawner>();
-        creditPool = GetComponent<CreditPool>();
         nextSpawner = searchSpawner();
-        nextEnemy = decideEnemy();
+        maxTimer = timer;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (creditPool.spendCredit(nextEnemy.GetComponent<Attackable>().scoreValue))
+        timer -= Time.deltaTime;
+
+        if (timer <= 0f)
         {
-            nextSpawner.spawn(nextEnemy);
+            timer = maxTimer;
             nextSpawner = searchSpawner();
-            nextEnemy = decideEnemy();
+            nextSpawner.spawn(weapons[Random.Range(0, weapons.Count)]);
         }
     }
 
@@ -44,26 +47,6 @@ public class MonsterSpawner : MonoBehaviour
         Debug.LogError("Could not find viable spawner");
         return null;
     }
-
-
-    private GameObject decideEnemy()
-    {
-        GameObject considering;
-        considering = enemies[Random.Range(0, enemies.Count)];
-        //Debug.Log("initial enemy is " + considering);
-        //Debug.Log(creditPool.incrementby * 3);
-        while (considering.GetComponent<Attackable>().scoreValue > (creditPool.incrementby * 3))
-        {
-            //Debug.Log("searching for a new enemy...");
-            considering = enemies[Random.Range(0, enemies.Count)];
-        }
-        //private GameObject considering;
-        //while ()
-        //if !(enemies[Random.Range(0, enemies.Count)])
-        //Debug.Log("seems reasonable, returning " + considering);
-        return considering;
-    }
-
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(1, 1, 0, .8f);

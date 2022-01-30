@@ -39,7 +39,6 @@ public class Bullet : MonoBehaviour
                 if (otherAttackable.mFaction != faction)
                 {
                     otherAttackable.TakeDamage(damage);
-                   
                     Destroy(this.gameObject);
                 }
             }

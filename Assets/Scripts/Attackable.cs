@@ -37,6 +37,10 @@ public class Attackable : MonoBehaviour
         }
         if (!alive)
         {
+            if (mFaction == FactionType.ENEMIES)
+            {
+                FindObjectOfType<ScoreTracker>().AddToScore(scoreValue);
+            }
             Destroy(this.gameObject);
         }
     }
