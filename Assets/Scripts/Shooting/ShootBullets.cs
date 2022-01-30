@@ -9,6 +9,9 @@ public class ShootBullets : MonoBehaviour
     public GameObject BulletPrefab;
     public float BulletSpeed;
     public float BulletSpawnDistance;
+    public float ReloadSpeed;
+    private float reload_timer;
+    private float prev_time;
 
     // Start is called before the first frame update
     void Start()
@@ -19,13 +22,24 @@ public class ShootBullets : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(FireKey))
+        if (reload_timer >= ReloadSpeed)
         {
-            Vector3 toMouse = (Input.mousePosition - transform.position).normalized;
-            GameObject b = Instantiate(BulletPrefab,
-               transform.position + toMouse * BulletSpawnDistance,
-                Quaternion.FromToRotation(transform.right, toMouse));
-            b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * toMouse;
+            if (Input.GetKey(FireKey))
+            {
+                Vector3 toMouse = (Input.mousePosition - transform.position).normalized;
+                GameObject b = Instantiate(BulletPrefab,
+                    transform.position + transform.right * BulletSpawnDistance,
+                    transform.rotation);
+                b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;//* toMouse;
+                reload_timer = 0;
+            }
         }
+        else
+        {
+            reload_timer += Time.time - prev_time;
+        }
+
+        prev_time = Time.time;
     }
+
 }
