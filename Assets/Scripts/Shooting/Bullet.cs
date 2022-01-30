@@ -39,11 +39,17 @@ public class Bullet : MonoBehaviour
                 if (otherAttackable.mFaction != faction)
                 {
                     otherAttackable.TakeDamage(damage);
+                    // if(this.gameObject.tag == "enemy"){
+                    //     ScoreTracker.AddToScore(1);
+                    // }
                     Destroy(this.gameObject);
                 }
             }
             else
             {
+                    // if(this.gameObject.tag == "enemy"){
+                    //     ScoreTracker.AddToScore(1);
+                    // }
                 Destroy(this.gameObject);
             }
         }
@@ -51,6 +57,9 @@ public class Bullet : MonoBehaviour
         {
             if (other.tag == "Wall" && this.GetComponent<Bullet>() != null)
             { 
+                    // if(this.gameObject.tag == "enemy"){
+                    //     ScoreTracker.AddToScore(1);
+                    // }
                 Destroy(this.gameObject);
             }
         }
