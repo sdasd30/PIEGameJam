@@ -7,6 +7,7 @@ public class ShootBullets : MonoBehaviour
     private GameObject player;
     public KeyCode FireKey;
     public GameObject BulletPrefab;
+    public float bulletDamage;
     public float BulletSpeed;
     public float BulletSpawnDistance;
     public float ReloadSpeed;
@@ -34,6 +35,7 @@ public class ShootBullets : MonoBehaviour
                     GameObject b = Instantiate(BulletPrefab,
                         transform.position + transform.right * BulletSpawnDistance,
                         transform.rotation);
+                    b.GetComponent<Bullet>().Setup(bulletDamage, GetComponent<Attackable>().mFaction);
                     b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;//* toMouse;
                     b.GetComponent<Rigidbody2D>().MoveRotation(Random.Range(-bulletSpread, bulletSpread));
                 }

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contactHurt: 5
-  maxHealth: 1
-  health: 1
+  maxHealth: 40
+  health: 40
   invulnTime: 0
   mFaction: 2
