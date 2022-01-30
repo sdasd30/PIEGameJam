@@ -28,13 +28,13 @@ public class PlayerController : MonoBehaviour
 
 		if (Input.GetKey("w"))
 		{
-			vel += Vector3.up * walkSpeed;
+			vel += Vector3.up * walkSpeed * Time.deltaTime;
 			//up = true;
 			moving = true;
 		}
 		else if (Input.GetKey("s"))
 		{
-			vel += Vector3.down * walkSpeed;
+			vel += Vector3.down * walkSpeed * Time.deltaTime;
 			//down = true;
 			moving = true;
 		}
@@ -42,13 +42,13 @@ public class PlayerController : MonoBehaviour
 		// no else here. Combinations of up/down and left/right are fine.
 		if (Input.GetKey("a"))
 		{
-			vel += Vector3.left * walkSpeed;
+			vel += Vector3.left * walkSpeed * Time.deltaTime;
 			//left = true;
 			moving = true;
 		}
 		else if (Input.GetKey("d"))
 		{
-			vel += Vector3.right * walkSpeed;
+			vel += Vector3.right * walkSpeed * Time.deltaTime;
 			//right = true;
 			moving = true;
 		}
