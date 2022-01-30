@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShootBullets : MonoBehaviour
 {
-    private GameObject player;
     public KeyCode FireKey;
     public GameObject BulletPrefab;
     public float bulletDamage;
@@ -14,7 +13,6 @@ public class ShootBullets : MonoBehaviour
     public float bulletSpread;
     public float bulletCount = 1;
     private float reload_timer;
-    private float prev_time;
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +45,4 @@ public class ShootBullets : MonoBehaviour
             reload_timer += Time.deltaTime;
         }
     }
-
 }
