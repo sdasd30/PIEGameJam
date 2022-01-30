@@ -51,6 +51,7 @@ public class Bullet : MonoBehaviour
         else
         {
             if (other.tag == "Wall" && this.GetComponent<Bullet>() != null)
+            { 
                 Destroy(this.gameObject);
             }
         }
