@@ -32,18 +32,25 @@ public class Bullet : MonoBehaviour
                 if (otherAttackable.mFaction != faction)
                 {
                     otherAttackable.TakeDamage(damage);
+                    if(this.GameObject.tag == "enemy"){
+                        ScoreTracker.AddToScore(1);
+                    }
                     Destroy(this.gameObject);
                 }
             }
             else
-            {
+            {   if(this.GameObject.tag == "enemy"){
+                ScoreTracker.AddToScore(1);
+            }
                 Destroy(this.gameObject);
             }
         }
         else
         {
             if (other.tag == "Wall" && this.GetComponent<Bullet>() != null)
-            {
+            {   if(this.GameObject.tag == "enemy"){
+                ScoreTracker.AddToScore(1);
+            }
                 Destroy(this.gameObject);
             }
         }

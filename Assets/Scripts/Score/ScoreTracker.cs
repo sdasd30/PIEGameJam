@@ -1,68 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ScoreTracker : MonoBehaviour
 {
-	public float walkSpeed;
-	[HideInInspector] public bool moving;
-	Rigidbody2D mBody;
-	//AnimatorSprite mAnim;
+    private static float score;  // everyone has the same score
+    private static Text scoreText; // everyone has the same text
 
-	void Start()
-	{
-		mBody = GetComponent<Rigidbody2D>();
-		//mAnim = GetComponent<AnimatorSprite>();
-	}
+    // Use this for initialization
+    internal void Start()
+    {
+        scoreText = GetComponent<Text>();
+        UpdateText();
 
-	// Update is called once per frame
-	void FixedUpdate()
-	{
-		Vector3 vel = new Vector3();
-		//bool up, down, right, left;
-		//up = false;
-		//down = false;
-		//right = false;
-		//left = false;
-		moving = false;
+    }
 
-		if (Input.GetKey("w"))
-		{
-			vel += Vector3.up * walkSpeed * Time.deltaTime;
-			//up = true;
-			moving = true;
-		}
-		else if (Input.GetKey("s"))
-		{
-			vel += Vector3.down * walkSpeed * Time.deltaTime;
-			//down = true;
-			moving = true;
-		}
-
-		// no else here. Combinations of up/down and left/right are fine.
-		if (Input.GetKey("a"))
-		{
-			vel += Vector3.left * walkSpeed * Time.deltaTime;
-			//left = true;
-			moving = true;
-		}
-		else if (Input.GetKey("d"))
-		{
-			vel += Vector3.right * walkSpeed * Time.deltaTime;
-			//right = true;
-			moving = true;
-		}
+    public static void AddToScore(float points)
+    {
+        score += points;
+        UpdateText();
+    }
+    public static void ResetScore()
+    {
+        score = 0;
+        UpdateText();
+    }
 
 
-		mBody.velocity = vel;
-
-
-        var enemies = GameObject.FindGameObjectWithTag("enemy");
-        if(enemies == null){
-            SceneManager.LoadScene("SampleScene");
-        }
-	}
-
-    
+    private static void UpdateText()
+    {
+        scoreText.text = String.Format("Zombies Defeated: {0}", score);
+    }
 }
