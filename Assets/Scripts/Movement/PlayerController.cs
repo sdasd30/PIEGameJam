@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
 		Vector3 vel = new Vector3();
 		//bool up, down, right, left;
