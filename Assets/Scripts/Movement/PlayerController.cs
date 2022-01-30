@@ -1,68 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D _rb;
-    public float speed;
-    private float magnitude;
-    public Vector3 spawnPoint; // where the user will spawn and respawn
+	public float walkSpeed;
+	[HideInInspector] public bool moving;
+	Rigidbody2D mBody;
+	//AnimatorSprite mAnim;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _rb = GetComponent<Rigidbody2D>();
-        magnitude = 1f;
-        //Set up spawnpoint
-        spawnPoint = transform.position;
-    }
+	void Start()
+	{
+		mBody = GetComponent<Rigidbody2D>();
+		//mAnim = GetComponent<AnimatorSprite>();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
+		Vector3 vel = new Vector3();
+		//bool up, down, right, left;
+		//up = false;
+		//down = false;
+		//right = false;
+		//left = false;
+		moving = false;
 
-    }
+		if (Input.GetKey("w"))
+		{
+			vel += Vector3.up * walkSpeed;
+			//up = true;
+			moving = true;
+		}
+		else if (Input.GetKey("s"))
+		{
+			vel += Vector3.down * walkSpeed;
+			//down = true;
+			moving = true;
+		}
+
+		// no else here. Combinations of up/down and left/right are fine.
+		if (Input.GetKey("a"))
+		{
+			vel += Vector3.left * walkSpeed;
+			//left = true;
+			moving = true;
+		}
+		else if (Input.GetKey("d"))
+		{
+			vel += Vector3.right * walkSpeed;
+			//right = true;
+			moving = true;
+		}
 
 
-    void FixedUpdate()
-    {
-        Movement();
+		mBody.velocity = vel;
 
-    }
-
-    void Movement()
-    {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            _rb.velocity = new Vector2(0, magnitude * speed);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            _rb.velocity = new Vector2(0, magnitude * -speed);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            _rb.velocity = new Vector2(magnitude * -speed, 0);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            _rb.velocity = new Vector2(magnitude * speed, 0);
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "hazard")
-        {
-            transform.position = spawnPoint;
-        }
-        if (collision.gameObject.tag == "goal")
-        {
-            transform.position = spawnPoint;
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            SceneManager.LoadScene(nextSceneIndex);
-        }
-    }
+	}
 }
