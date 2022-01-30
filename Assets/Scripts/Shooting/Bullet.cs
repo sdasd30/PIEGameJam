@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    float decayTime = 3f;
     [SerializeField] float damage;
     FactionType faction;
 
@@ -13,11 +14,17 @@ public class Bullet : MonoBehaviour
         faction = mFaction;
     }
 
-
-    private void OnBecameInvisible()
+    private void Update()
     {
-        Destroy(this.gameObject);
+        decayTime -= Time.deltaTime;
+        if (decayTime <= 0f) Destroy(this.gameObject);
     }
+
+
+    //private void OnBecameInvisible()
+    //{
+    //    Destroy(this.gameObject);
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,18 +39,25 @@ public class Bullet : MonoBehaviour
                 if (otherAttackable.mFaction != faction)
                 {
                     otherAttackable.TakeDamage(damage);
+                    if(this.GameObject.tag == "enemy"){
+                        ScoreTracker.AddToScore(1);
+                    }
                     Destroy(this.gameObject);
                 }
             }
             else
-            {
+            {   if(this.GameObject.tag == "enemy"){
+                ScoreTracker.AddToScore(1);
+            }
                 Destroy(this.gameObject);
             }
         }
         else
         {
             if (other.tag == "Wall" && this.GetComponent<Bullet>() != null)
-            {
+            {   if(this.GameObject.tag == "enemy"){
+                ScoreTracker.AddToScore(1);
+            }
                 Destroy(this.gameObject);
             }
         }

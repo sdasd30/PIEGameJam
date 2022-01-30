@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -56,5 +57,12 @@ public class PlayerController : MonoBehaviour
 
 		mBody.velocity = vel;
 
+
+        var enemies = GameObject.FindGameObjectWithTag("enemy");
+        if(enemies == null){
+            SceneManager.LoadScene("SampleScene");
+        }
 	}
+
+    
 }
