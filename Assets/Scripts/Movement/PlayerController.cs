@@ -58,10 +58,10 @@ public class PlayerController : MonoBehaviour
 		mBody.velocity = vel;
 
 
-        var enemies = GameObject.FindGameObjectWithTag("enemy");
-        if(enemies == null){
-            SceneManager.LoadScene("SampleScene");
-        }
+        //var enemies = GameObject.FindGameObjectWithTag("enemy");
+        //if(enemies == null){
+        //    SceneManager.LoadScene("SampleScene");
+        //}
 	}
 
     

@@ -6,6 +6,7 @@ public enum FactionType { IMMUNE, ALLIES, ENEMIES, NEUTRAL };
 
 public class Attackable : MonoBehaviour
 {
+    public float scoreValue = 1;
     public float contactHurt;
     public float maxHealth = 1;
     public float health = 1;
