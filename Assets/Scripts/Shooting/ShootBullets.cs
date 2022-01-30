@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootBullets : MonoBehaviour
 {
+    private GameObject player;
     public KeyCode FireKey;
     public GameObject BulletPrefab;
     public float bulletDamage;
@@ -13,6 +14,7 @@ public class ShootBullets : MonoBehaviour
     public float bulletSpread;
     public float bulletCount = 1;
     private float reload_timer;
+    private float prev_time;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +31,15 @@ public class ShootBullets : MonoBehaviour
             {
                 //Vector3 toMouse = (Input.mousePosition - transform.position).normalized;
                 for (int i = 0; i < bulletCount; i++)
-                {
+                {   
+                    
                     GameObject b = Instantiate(BulletPrefab,
                         transform.position + transform.right * BulletSpawnDistance,
                         transform.rotation);
                     b.GetComponent<Bullet>().Setup(bulletDamage, GetComponent<Attackable>().mFaction);
-                    b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * transform.right;//* toMouse;
-                    b.GetComponent<Rigidbody2D>().MoveRotation(Random.Range(-bulletSpread, bulletSpread));
+                    b.transform.Rotate(new Vector3(0,0,Random.Range(-bulletSpread, bulletSpread)));
+                    b.GetComponent<Rigidbody2D>().velocity = BulletSpeed * b.transform.right;//* toMouse;
+                    
                 }
                 reload_timer = 0;
             }
@@ -45,4 +49,5 @@ public class ShootBullets : MonoBehaviour
             reload_timer += Time.deltaTime;
         }
     }
+
 }

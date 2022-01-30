@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 1254141777}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -401,6 +401,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1601977284, guid: 530aa0b8d945a104ba39eb2327d54011, type: 3}
+      propertyPath: BulletSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601977284, guid: 530aa0b8d945a104ba39eb2327d54011, type: 3}
+      propertyPath: ReloadSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601977284, guid: 530aa0b8d945a104ba39eb2327d54011, type: 3}
+      propertyPath: bulletCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601977284, guid: 530aa0b8d945a104ba39eb2327d54011, type: 3}
+      propertyPath: bulletSpread
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6916838210808623145, guid: 530aa0b8d945a104ba39eb2327d54011, type: 3}
       propertyPath: m_RootOrder
       value: 1
