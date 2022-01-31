@@ -39,13 +39,13 @@ public class Attackable : MonoBehaviour
         {
             if (mFaction == FactionType.ENEMIES)
             {
-                FindObjectOfType<ScoreTracker>().AddToScore(scoreValue);
+                //FindObjectOfType<ScoreTracker>().AddToScore(scoreValue);
             }
 
             if(this.gameObject.tag == "Player")
             {
                //Debug.Log(GameObject.Find("LosingText").GetComponent<Text>());
-               GameObject.Find("LosingText").GetComponent<Text>().text = "You Lost";
+               //GameObject.Find("LosingText").GetComponent<Text>().text = "You Lost";
                //GameObject.Find("LosingText").enabled = true;
             }
             Destroy(this.gameObject);
