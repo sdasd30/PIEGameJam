@@ -14,7 +14,7 @@ public class Difficulty : MonoBehaviour
     private void Start()
     {
         plrScore = FindObjectOfType<ScoreTracker>();
-        requiredScore = 49;
+        requiredScore = 30;
         difficultyLevel = 1;
     }
 
