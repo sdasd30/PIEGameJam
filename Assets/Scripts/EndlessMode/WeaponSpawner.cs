@@ -24,7 +24,7 @@ public class WeaponSpawner : MonoBehaviour
     {
         if (creditPool.buyUpgrade(30))
         {
-            Vector3 shake = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
+            Vector3 shake = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
             nextSpawner.spawn(nextEnemy,shake);
             nextSpawner = searchSpawner();
             nextEnemy = decideEnemy();
