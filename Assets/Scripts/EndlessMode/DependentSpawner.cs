@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class DependentSpawner : MonoBehaviour
 {
-    public void spawn(GameObject x)
+    public void spawn(GameObject x, Vector3 shake)
     {
-        Instantiate(x, this.transform.position, Quaternion.identity);
+        Vector3 posn = this.transform.position + shake;
+        Instantiate(x, posn, Quaternion.identity);
     }
+
+
 }

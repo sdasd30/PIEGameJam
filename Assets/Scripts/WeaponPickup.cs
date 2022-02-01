@@ -24,7 +24,7 @@ public class WeaponPickup : MonoBehaviour
 
         if (hit.GetComponent<PlayerController>() != null)
         {
-            hit.GetComponent<ShootBullets>().ChangeWeapon(bulletDamage, BulletSpeed, ReloadSpeed, bulletSpread, bulletCount);
+            //hit.GetComponent<ShootBullets>().ModifyWeapon(bulletDamage, BulletSpeed, ReloadSpeed, bulletSpread, bulletCount);
             Destroy(this.gameObject);
 
         }    

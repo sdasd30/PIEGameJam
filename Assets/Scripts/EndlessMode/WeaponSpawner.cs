@@ -5,31 +5,29 @@ using UnityEngine;
 public class WeaponSpawner : MonoBehaviour
 {
     DependentSpawner[] spawners;
-    public List<GameObject> weapons;
+    public List<GameObject> pickups;
+    public GameObject nextEnemy;
     private DependentSpawner nextSpawner;
     CreditPool creditPool;
-
-    public float timer = 15f;
-    float maxTimer;
 
 
     void Start()
     {
         spawners = FindObjectsOfType<DependentSpawner>();
+        creditPool = GetComponent<CreditPool>();
         nextSpawner = searchSpawner();
-        maxTimer = timer;
+        nextEnemy = decideEnemy();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
-
-        if (timer <= 0f)
+        if (creditPool.buyUpgrade(30))
         {
-            timer = maxTimer;
+            Vector3 shake = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), 0);
+            nextSpawner.spawn(nextEnemy,shake);
             nextSpawner = searchSpawner();
-            nextSpawner.spawn(weapons[Random.Range(0, weapons.Count)]);
+            nextEnemy = decideEnemy();
         }
     }
 
@@ -39,14 +37,27 @@ public class WeaponSpawner : MonoBehaviour
         {
             DependentSpawner spawner = spawners[Random.Range(0, spawners.Length)];
             GameObject player = FindObjectOfType<PlayerController>().gameObject;
-            if (Vector3.Distance(spawner.transform.position, player.transform.position) >= 5f)
+            if (Vector3.Distance(spawner.transform.position, player.transform.position) >= 10f && CountEnemies() <= 10)
             {
-                return spawners[Random.Range(0, spawners.Length)];
+                return spawner;
             }
         }
         Debug.LogError("Could not find viable spawner");
         return null;
     }
+
+    private int CountEnemies()
+    {
+        return FindObjectsOfType<UniversalPickup>().Length;
+    }
+
+    private GameObject decideEnemy()
+    {
+        GameObject considering;
+        considering = pickups[Random.Range(0, pickups.Count)];
+        return considering;
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = new Color(1, 1, 0, .8f);

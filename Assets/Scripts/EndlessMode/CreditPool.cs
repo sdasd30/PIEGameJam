@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CreditPool : MonoBehaviour
 {
-    public float creditMod = 1;  //Default is 1. That means the game will get 1 credit to spend a second.
+    public float creditMod = .5f;  //Default is 1. That means the game will get 1 credit to spend a second.
                                  //Halfing the rate at which things spawn is done by making credit count .5, and so on.
     public float creditPool = 0;
+    public float upgradePool = 0;
     public float incrementby = 1; //Public only for viewing in inspector.
     private float creditCooldown;
     private Difficulty gameDifficulty;
@@ -27,10 +28,22 @@ public class CreditPool : MonoBehaviour
             newIncrement(incrementby);
         }
         moreCredits(incrementby);
-
     }
 
     public bool spendCredit(float requested)
+    {
+        //Debug.Log(requested + " requested, " + creditPool + "owned");
+        if (requested < upgradePool)
+        {
+            upgradePool -= requested;
+            //Debug.Log("Spent, sending true");
+            return true;
+        }
+        //Debug.Log("Rejected, sending false");
+        return false;
+    }
+
+    public bool buyUpgrade(float requested)
     {
         //Debug.Log(requested + " requested, " + creditPool + "owned");
         if (requested < creditPool)
@@ -43,6 +56,7 @@ public class CreditPool : MonoBehaviour
         return false;
     }
 
+
     private bool checkDifficulty(int kd)
     {
         if (kd < gameDifficulty.getDifficulty()) return true;
@@ -51,7 +65,7 @@ public class CreditPool : MonoBehaviour
 
     private void newIncrement(float inc)
     {
-        incrementby = inc + (inc * .12f);
+        incrementby = inc + inc;
     }
 
     private void moreCredits(float inc)
@@ -60,6 +74,7 @@ public class CreditPool : MonoBehaviour
         if (creditCooldown <= 0)
         {
             creditPool += inc;
+            upgradePool += inc / 2;
             creditCooldown = 1;
         }
     }

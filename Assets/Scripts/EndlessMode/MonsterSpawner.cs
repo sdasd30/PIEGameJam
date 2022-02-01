@@ -22,9 +22,9 @@ public class MonsterSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (creditPool.spendCredit(nextEnemy.GetComponent<Attackable>().scoreValue))
+        if (creditPool.spendCredit(nextEnemy.GetComponent<Attackable>().scoreValue) && CountEnemies() <= 100)
         {
-            nextSpawner.spawn(nextEnemy);
+            nextSpawner.spawn(nextEnemy, new Vector3(0,0,0));
             nextSpawner = searchSpawner();
             nextEnemy = decideEnemy();
         }
@@ -36,15 +36,19 @@ public class MonsterSpawner : MonoBehaviour
         {
             DependentSpawner spawner = spawners[Random.Range(0, spawners.Length)];
             GameObject player = FindObjectOfType<PlayerController>().gameObject;
-            if (Vector3.Distance(spawner.transform.position, player.transform.position) >= 5f)
+            if (Vector3.Distance(spawner.transform.position, player.transform.position) >= 10f)
             {
-                return spawners[Random.Range(0, spawners.Length)];
+                return spawner;
             }
         }
         Debug.LogError("Could not find viable spawner");
         return null;
     }
 
+    private int CountEnemies()
+    {
+        return FindObjectsOfType<EnemyMove>().Length;
+    }
 
     private GameObject decideEnemy()
     {
